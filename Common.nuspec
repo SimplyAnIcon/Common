@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>SimplyAnIcon.Common</id>
+        <version>$version$</version>
+        <title>SimplyAnIcon.Common</title>
+        <authors>Ericmas001</authors>
+        <licenseUrl>https://raw.githubusercontent.com/SimplyAnIcon/Common/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/SimplyAnIcon/Common</projectUrl>
+        <iconUrl>https://github.com/SimplyAnIcon/Common/raw/master/Resources/cool.png</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>SimplyAnIcon.Common</description>
+        <summary>SimplyAnIcon.Common</summary>
+        <releaseNotes>Development Version</releaseNotes>
+        <copyright />
+        <language>en</language>
+    </metadata>
+    <files>
+      <file src="SimplyAnIcon.Common\bin\$configuration$\SimplyAnIcon.Common.dll" target="lib\net461\" />
+  </files>
+</package>

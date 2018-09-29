@@ -1,4 +1,4 @@
-# SimplyAnIcon.Commin
+# SimplyAnIcon.Common
 [![com-ericmas001 MyGet Build Status](https://www.myget.org/BuildSource/Badge/com-ericmas001?identifier=2c671af4-74ce-4836-92c3-8c4985192ee2)](https://www.myget.org/)
 
 ###Current Version: 0.1.0 *(2018-09-29)*

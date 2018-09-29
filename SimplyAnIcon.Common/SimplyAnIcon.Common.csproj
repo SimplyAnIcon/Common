@@ -94,10 +94,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\config.png" />
-    <Content Include="Resources\exit.png" />
-    <Content Include="Resources\restart.png" />
-    <Content Include="Resources\update.png" />
+    <Resource Include="Resources\config.png" />
+    <Resource Include="Resources\exit.png" />
+    <Resource Include="Resources\restart.png" />
+    <Resource Include="Resources\update.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\ImageResources.xaml">

@@ -16,7 +16,7 @@
     <language>en</language>
     <dependencies>
       <dependency id="SimplyAnIcon.Plugins" version="0.3.1" />
-      <dependency id="SimplyAnIcon.Plugins.Wpf" version="0.3.1" />
+      <dependency id="SimplyAnIcon.Plugins.Wpf" version="0.4.0" />
       <dependency id="Com.Ericmas001.DependencyInjection" version="2.2.0" />
       <dependency id="MvvmLightLibs" version="5.4.1.1" />
       <dependency id="Hardcodet.NotifyIcon.Wpf" version="1.0.8" />

@@ -12,7 +12,10 @@
                     IconSource="{Binding IconSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     ToolTipText="{Binding IconName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         <tb:TaskbarIcon.ContextMenu>
-            <ContextMenu Visibility="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <ContextMenu 
+                Visibility="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                ItemsSource="{Binding Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                IsOpen="{Binding StayOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                 <ContextMenu.UsesItemContainerTemplate>false</ContextMenu.UsesItemContainerTemplate>
                 <ContextMenu.Resources>
                     <ResourceDictionary>
@@ -23,6 +26,7 @@
                             <Setter Property="ItemsSource" Value="{Binding Children, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <Setter Property="Height" Value="{Binding Height, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <Setter Property="StaysOpenOnClick" Value="{Binding StaysOpenOnClick, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Setter Property="IsSubmenuOpen" Value="{Binding IsSubMenuOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <Setter Property="Background" Value="White"/>
                         </Style>
                         <DataTemplate  DataType="{x:Type vm:SeparatorMenuItemViewModel}">

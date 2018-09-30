@@ -27,5 +27,10 @@ namespace SimplyAnIcon.Common.ViewModels.Interfaces
         /// IconName
         /// </summary>
         string IconName { get; }
+
+        /// <summary>
+        /// StayOpen
+        /// </summary>
+        bool StayOpen { get; }
     }
 }

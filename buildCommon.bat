@@ -14,7 +14,6 @@ if "%nuget%" == "" (
 	set nuget=nuget
 )
 
-call %NuGet% restore SimplyAnIcon.Common.sln -NonInteractive
 msbuild SimplyAnIcon.Common.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
 
 mkdir Build

@@ -45,7 +45,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
             set
             {
                 Set(ref _isActivated, value);
-                _pluginSettings.SetActivationStatus(Name, value);
+                _pluginSettings.SetActivationStatus(Plugin, value);
             }
         }
 
@@ -55,7 +55,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
         protected virtual void OnInternalInit(ISimplyAPlugin plugin)
         {
             Plugin = plugin;
-            IsActivated = _pluginSettings.IsActive(Name);
+            IsActivated = _pluginSettings.IsActive(plugin);
         }
     }
 }

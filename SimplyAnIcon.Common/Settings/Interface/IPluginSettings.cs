@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SimplyAnIcon.Common.Models;
+using SimplyAnIcon.Plugins.V1;
 
 namespace SimplyAnIcon.Common.Settings.Interface
 {
@@ -11,21 +12,26 @@ namespace SimplyAnIcon.Common.Settings.Interface
         /// <summary>
         /// IsActive
         /// </summary>
-        bool IsActive(string pluginName);
+        bool IsActive(ISimplyAPlugin plugin);
 
         /// <summary>
         /// SetActivationStatus
         /// </summary>
-        void SetActivationStatus(string pluginName, bool value);
+        void SetActivationStatus(ISimplyAPlugin plugin, bool value);
 
         /// <summary>
         /// AddPlugin
         /// </summary>
-        void AddPlugin(string name);
+        void AddPlugin(ISimplyAPlugin plugin);
 
         /// <summary>
         /// GetPlugins
         /// </summary>
         IEnumerable<PluginSettingEntry> GetPlugins();
+
+        /// <summary>
+        /// GetPluginName
+        /// </summary>
+        string GetPluginName(ISimplyAPlugin plugin);
     }
 }

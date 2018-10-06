@@ -39,7 +39,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins
         /// </summary>
         public void OnInit(PluginCatalog catalog)
         {
-            foreach (var plugin in catalog.PluginInstances.Concat(catalog.PluginWpfInstances).OrderBy(x => x.Name))
+            foreach (var plugin in catalog.AllPlugins.OrderBy(x => x.Name))
             {
                 if (plugin is ISimplyAWpfPlugin wpfPlugin && wpfPlugin.CustomConfigControl != null)
                 {

@@ -5,6 +5,7 @@ using Com.Ericmas001.DependencyInjection.RegistrantFinders;
 using SimplyAnIcon.Common.Helpers.Interfaces;
 using SimplyAnIcon.Common.Models;
 using SimplyAnIcon.Common.Services.Interfaces;
+using SimplyAnIcon.Common.Settings.Interface;
 using SimplyAnIcon.Plugins.V1;
 using SimplyAnIcon.Plugins.Wpf.V1;
 
@@ -15,6 +16,16 @@ namespace SimplyAnIcon.Common.Services
     /// </summary>
     public class PluginService : IPluginService
     {
+        private readonly IPluginSettings _pluginSettings;
+
+        /// <summary>
+        /// PluginService
+        /// </summary>
+        public PluginService(IPluginSettings pluginSettings)
+        {
+            _pluginSettings = pluginSettings;
+        }
+
         /// <summary>
         /// LoadPlugins
         /// </summary>
@@ -26,8 +37,9 @@ namespace SimplyAnIcon.Common.Services
             if (!dir.Exists)
                 return new PluginCatalog
                 {
-                    PluginInstances = new ISimplyAPlugin[0],
-                    PluginWpfInstances = new ISimplyAWpfPlugin[0]
+                    ActiveBackgroungPlugins = new ISimplyAPlugin[0],
+                    ActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
+                    AllPlugins = new ISimplyAPlugin[0]
                 };
 
             var excludedPrefix = new[]
@@ -51,13 +63,26 @@ namespace SimplyAnIcon.Common.Services
 
             resolverHelper.EverythingIsRegistered(registrantBuilder.Build().GetAllRegistrations());
 
+            var plugins = pTypes
+                .Select(resolverHelper.Resolve)
+                .Cast<ISimplyAPlugin>()
+                .ToArray();
+
+            var pluginSettings = _pluginSettings.GetPlugins().ToArray();
+
+            foreach (var plugin in plugins)
+            {
+                if (pluginSettings.All(x => x.Name != _pluginSettings.GetPluginName(plugin)))
+                _pluginSettings.AddPlugin(plugin);
+            }
+
+            var activePlugins = plugins.Where(x => _pluginSettings.IsActive(x)).ToArray();
+
             return new PluginCatalog
             {
-                PluginInstances = pTypes.Where(p => !typeof(ISimplyAWpfPlugin).IsAssignableFrom(p))
-                    .Select(resolverHelper.Resolve).Cast<ISimplyAPlugin>().ToArray(),
-
-                PluginWpfInstances = pTypes.Where(p => typeof(ISimplyAWpfPlugin).IsAssignableFrom(p))
-                    .Select(resolverHelper.Resolve).Cast<ISimplyAWpfPlugin>().ToArray()
+                AllPlugins = plugins,
+                ActiveBackgroungPlugins = activePlugins.Where(p => !(p is ISimplyAWpfPlugin)).ToArray(),
+                ActiveForegroundPlugins = activePlugins.OfType<ISimplyAWpfPlugin>().ToArray(),
             };
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using SimplyAnIcon.Common.Helpers.Interfaces;
 using SimplyAnIcon.Common.Models;
 using SimplyAnIcon.Common.Settings.Interface;
+using SimplyAnIcon.Plugins.V1;
 
 namespace SimplyAnIcon.Common.Settings
 {
@@ -25,42 +26,50 @@ namespace SimplyAnIcon.Common.Settings
         }
 
         /// <inheritdoc />
-        public bool IsActive(string pluginName)
+        public bool IsActive(ISimplyAPlugin plugin)
         {
             var plugins = LoadPluginSettings().ToArray();
 
-            var plugin = plugins.SingleOrDefault(p => p.Name == pluginName);
+            var entry = plugins.SingleOrDefault(p => p.Name == GetPluginName(plugin));
 
-            return plugin?.IsActive ?? false;
+            return entry?.IsActive ?? false;
         }
 
         /// <inheritdoc />
-        public void SetActivationStatus(string pluginName, bool value)
+        public void SetActivationStatus(ISimplyAPlugin plugin, bool value)
         {
             var plugins = LoadPluginSettings().ToArray();
 
-            var plugin = plugins.SingleOrDefault(p => p.Name == pluginName);
+            var entry = plugins.SingleOrDefault(p => p.Name == GetPluginName(plugin));
 
-            if (plugin == null)
+            if (entry == null)
                 return;
 
-            plugin.IsActive = value;
+            entry.IsActive = value;
 
             SavePluginSettings(plugins);
         }
 
         /// <inheritdoc />
-        public void AddPlugin(string name)
+        public void AddPlugin(ISimplyAPlugin plugin)
         {
             var plugins = LoadPluginSettings().ToList();
             var entry = new PluginSettingEntry
             {
-                Name = name,
+                Name = GetPluginName(plugin),
                 IsActive = false,
                 Order = plugins.Any() ? plugins.Max(x => x.Order) + 1 : 0
             };
             plugins.Add(entry);
             SavePluginSettings(plugins);
+        }
+
+        /// <summary>
+        /// GetPluginName
+        /// </summary>
+        public string GetPluginName(ISimplyAPlugin plugin)
+        {
+            return plugin.GetType().Assembly.GetName().Name + ";" + plugin.GetType().FullName;
         }
 
         /// <inheritdoc />

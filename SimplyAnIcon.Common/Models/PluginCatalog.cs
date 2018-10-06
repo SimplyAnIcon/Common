@@ -12,11 +12,16 @@ namespace SimplyAnIcon.Common.Models
         /// <summary>
         /// PluginWpfInstances
         /// </summary>
-        public IEnumerable<ISimplyAWpfPlugin> PluginWpfInstances { get; set; }
+        public IEnumerable<ISimplyAPlugin> AllPlugins { get; set; }
+
+        /// <summary>
+        /// PluginWpfInstances
+        /// </summary>
+        public IEnumerable<ISimplyAWpfPlugin> ActiveForegroundPlugins { get; set; }
 
         /// <summary>
         /// PluginInstances
         /// </summary>
-        public IEnumerable<ISimplyAPlugin> PluginInstances { get; set; }
+        public IEnumerable<ISimplyAPlugin> ActiveBackgroungPlugins { get; set; }
     }
 }

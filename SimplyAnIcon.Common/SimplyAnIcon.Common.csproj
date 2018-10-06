@@ -76,8 +76,15 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFToggleSwitch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFToggleSwitch.1.0.0\lib\net45\WPFToggleSwitch.dll</HintPath>
+    </Reference>
+    <Reference Include="Y2D.CustomControls, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Y2D.CustomControls.1.5.1\lib\net451\Y2D.CustomControls.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\BindableSelectedItemBehavior.cs" />
     <Compile Include="CommonRegistrant.cs" />
     <Compile Include="Helpers\Interfaces\IInstanceResolverHelper.cs" />
     <Compile Include="Helpers\Interfaces\IJsonHelper.cs" />
@@ -110,8 +117,12 @@
     <Compile Include="ViewModels\ConfigurationSections\Plugins\Config\SpecialWpfConfigPluginsConfigurationSectionViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationSections\Plugins\GeneralPluginsConfigurationSectionViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationSections\Plugins\SpecificPluginsConfigurationSectionViewModel.cs" />
+    <Compile Include="ViewModels\AbstractConfigViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IConfigurationSectionViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ISimplyAnIconViewModel.cs" />
+    <Compile Include="Windows\ConfigWindow.xaml.cs">
+      <DependentUpon>ConfigWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -129,6 +140,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\NotifyIconResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ConfigWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

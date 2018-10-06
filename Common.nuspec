@@ -21,6 +21,8 @@
       <dependency id="MvvmLightLibs" version="5.4.1.1" />
       <dependency id="Hardcodet.NotifyIcon.Wpf" version="1.0.8" />
       <dependency id="Newtonsoft.Json" version="11.0.2" />
+      <dependency id="WPFToggleSwitch" version="1.0.0" />
+      <dependency id="Y2D.CustomControls" version="1.5.1" />
     </dependencies>
   </metadata>
   <files>

@@ -12,7 +12,7 @@ namespace SimplyAnIcon.Common.Settings.Interface
         /// <summary>
         /// IsActive
         /// </summary>
-        bool IsActive(ISimplyAPlugin plugin);
+        PluginSettingEntry GetPluginSetting(ISimplyAPlugin plugin);
 
         /// <summary>
         /// SetActivationStatus
@@ -23,6 +23,16 @@ namespace SimplyAnIcon.Common.Settings.Interface
         /// AddPlugin
         /// </summary>
         void AddPlugin(ISimplyAPlugin plugin);
+
+        /// <summary>
+        /// MoveOrderUp
+        /// </summary>
+        void MoveOrderUp(ISimplyAPlugin plugin);
+
+        /// <summary>
+        /// MoveOrderDown
+        /// </summary>
+        void MoveOrderDown(ISimplyAPlugin plugin);
 
         /// <summary>
         /// GetPlugins

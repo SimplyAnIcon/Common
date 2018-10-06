@@ -76,7 +76,12 @@ namespace SimplyAnIcon.Common.Services
                 _pluginSettings.AddPlugin(plugin);
             }
 
-            var activePlugins = plugins.Where(x => _pluginSettings.IsActive(x)).ToArray();
+            var activePlugins = plugins
+                .Select(x => new {Plugin = x, Setting = _pluginSettings.GetPluginSetting(x)})
+                .Where(x => x.Setting?.IsActive ?? false)
+                .OrderBy(x => x.Setting?.Order ?? -1)
+                .Select(x => x.Plugin)
+                .ToArray();
 
             return new PluginCatalog
             {

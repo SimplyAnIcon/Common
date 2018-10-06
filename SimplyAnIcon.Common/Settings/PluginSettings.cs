@@ -5,6 +5,7 @@ using SimplyAnIcon.Common.Helpers.Interfaces;
 using SimplyAnIcon.Common.Models;
 using SimplyAnIcon.Common.Settings.Interface;
 using SimplyAnIcon.Plugins.V1;
+using SimplyAnIcon.Plugins.Wpf.V1;
 
 namespace SimplyAnIcon.Common.Settings
 {
@@ -26,14 +27,7 @@ namespace SimplyAnIcon.Common.Settings
         }
 
         /// <inheritdoc />
-        public bool IsActive(ISimplyAPlugin plugin)
-        {
-            var plugins = LoadPluginSettings().ToArray();
-
-            var entry = plugins.SingleOrDefault(p => p.Name == GetPluginName(plugin));
-
-            return entry?.IsActive ?? false;
-        }
+        public PluginSettingEntry GetPluginSetting(ISimplyAPlugin plugin) => LoadPluginSettings().SingleOrDefault(p => p.Name == GetPluginName(plugin));
 
         /// <inheritdoc />
         public void SetActivationStatus(ISimplyAPlugin plugin, bool value)
@@ -51,6 +45,52 @@ namespace SimplyAnIcon.Common.Settings
         }
 
         /// <inheritdoc />
+        public void MoveOrderUp(ISimplyAPlugin plugin)
+        {
+            var plugins = LoadPluginSettings().OrderBy(x => x.Order).ToList();
+
+            var entry = plugins.SingleOrDefault(p => p.Name == GetPluginName(plugin));
+
+            if (entry == null)
+                return;
+
+            var index = plugins.IndexOf(entry);
+
+            if (index <= 0)
+                return;
+
+            var otherEntry = plugins[index - 1];
+            var tmp = entry.Order;
+            entry.Order = otherEntry.Order;
+            otherEntry.Order = tmp;
+
+            SavePluginSettings(plugins);
+        }
+
+        /// <inheritdoc />
+        public void MoveOrderDown(ISimplyAPlugin plugin)
+        {
+            var plugins = LoadPluginSettings().OrderBy(x => x.Order).ToList();
+
+            var entry = plugins.SingleOrDefault(p => p.Name == GetPluginName(plugin));
+
+            if (entry == null)
+                return;
+
+            var index = plugins.IndexOf(entry);
+
+            if (index < 0 || index == plugins.Count-1)
+                return;
+
+            var otherEntry = plugins[index + 1];
+            var tmp = entry.Order;
+            entry.Order = otherEntry.Order;
+            otherEntry.Order = tmp;
+
+            SavePluginSettings(plugins);
+        }
+
+        /// <inheritdoc />
         public void AddPlugin(ISimplyAPlugin plugin)
         {
             var plugins = LoadPluginSettings().ToList();
@@ -58,7 +98,7 @@ namespace SimplyAnIcon.Common.Settings
             {
                 Name = GetPluginName(plugin),
                 IsActive = false,
-                Order = plugins.Any() ? plugins.Max(x => x.Order) + 1 : 0
+                Order = plugin is ISimplyAWpfPlugin ? (plugins.Any() ? plugins.Max(x => x.Order) + 1 : 0) : -1
             };
             plugins.Add(entry);
             SavePluginSettings(plugins);

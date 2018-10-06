@@ -55,7 +55,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
         protected virtual void OnInternalInit(ISimplyAPlugin plugin)
         {
             Plugin = plugin;
-            IsActivated = _pluginSettings.IsActive(plugin);
+            IsActivated = _pluginSettings.GetPluginSetting(plugin)?.IsActive ?? false;
         }
     }
 }

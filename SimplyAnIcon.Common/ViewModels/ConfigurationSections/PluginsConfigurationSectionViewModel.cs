@@ -37,7 +37,9 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections
         /// </summary>
         public void OnInit(PluginCatalog catalog)
         {
-            _sections.Add(_resolverService.Resolve<GeneralPluginsConfigurationSectionViewModel>());
+            var genPlugin = _resolverService.Resolve<GeneralPluginsConfigurationSectionViewModel>();
+            genPlugin.OnInit(catalog);
+            _sections.Add(genPlugin);
 
             var plugins = _resolverService.Resolve<SpecificPluginsConfigurationSectionViewModel>();
             plugins.OnInit(catalog);

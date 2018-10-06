@@ -94,7 +94,22 @@
                         <Grid />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type plugins:GeneralPluginsConfigurationSectionViewModel}">
-                        <Grid />
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center" FontWeight="Bold">Plugins Order</TextBlock>
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center">
+                                    <Button Command="{Binding UpCommand}"> ⬆ </Button>
+                                    <Button Command="{Binding DownCommand}"> ⬇ </Button>
+                                </StackPanel>
+                                <ListBox VerticalAlignment="Center" Width="200" ItemsSource="{Binding Plugins}" SelectedItem="{Binding SelectedPlugin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </DockPanel>
+                        </StackPanel>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type plugins:SpecificPluginsConfigurationSectionViewModel}">
                         <Grid />

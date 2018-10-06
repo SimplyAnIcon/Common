@@ -20,6 +20,7 @@
       <dependency id="Com.Ericmas001.DependencyInjection" version="2.2.0" />
       <dependency id="MvvmLightLibs" version="5.4.1.1" />
       <dependency id="Hardcodet.NotifyIcon.Wpf" version="1.0.8" />
+      <dependency id="Newtonsoft.Json" version="11.0.2" />
     </dependencies>
   </metadata>
   <files>

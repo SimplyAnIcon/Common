@@ -14,7 +14,7 @@ if "%nuget%" == "" (
 	set nuget=nuget
 )
 
-msbuild SimplyAnIcon.Common.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
+msbuild SimplyAnIcon.Common.sln /p:Configuration="%config%" /m /v:M /t:restore /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
 
 mkdir Build
 mkdir Build\lib

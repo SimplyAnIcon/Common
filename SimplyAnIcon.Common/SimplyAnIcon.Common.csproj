@@ -55,11 +55,11 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SimplyAnIcon.Plugins, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimplyAnIcon.Plugins.0.4.0\lib\net461\SimplyAnIcon.Plugins.dll</HintPath>
+    <Reference Include="SimplyAnIcon.Plugins, Version=0.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimplyAnIcon.Plugins.0.5.3\lib\net461\SimplyAnIcon.Plugins.dll</HintPath>
     </Reference>
-    <Reference Include="SimplyAnIcon.Plugins.Wpf, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimplyAnIcon.Plugins.Wpf.0.4.0\lib\net461\SimplyAnIcon.Plugins.Wpf.dll</HintPath>
+    <Reference Include="SimplyAnIcon.Plugins.Wpf, Version=0.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimplyAnIcon.Plugins.Wpf.0.5.3\lib\net461\SimplyAnIcon.Plugins.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="Services\Interfaces\IPluginService.cs" />
     <Compile Include="Services\PluginService.cs" />
+    <Compile Include="StyleSelectors\MenuItemStyleSelector.cs" />
     <Compile Include="ViewModels\Interfaces\ISimplyAnIconViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

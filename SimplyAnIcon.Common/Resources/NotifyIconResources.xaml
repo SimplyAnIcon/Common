@@ -2,12 +2,18 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:tb="http://www.hardcodet.net/taskbar"
                     xmlns:vm="clr-namespace:SimplyAnIcon.Plugins.Wpf.V1.MenuItemViewModels;assembly=SimplyAnIcon.Plugins.Wpf"
+                    xmlns:resources="clr-namespace:SimplyAnIcon.Plugins.Wpf.Resources;assembly=SimplyAnIcon.Plugins.Wpf"
+                    xmlns:styleSelectors="clr-namespace:SimplyAnIcon.Common.StyleSelectors"
                     x:Class="SimplyAnIcon.Common.Resources.NotifyIconResources">
+
+    <ResourceDictionary.MergedDictionaries>
+            <resources:SimplyMenuResources />
+    </ResourceDictionary.MergedDictionaries>
+
+    <styleSelectors:MenuItemStyleSelector x:Key="MenuItemStyleSelector" />
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
-    <Image x:Key="MyIcon" x:Shared="False" Width="16" Height="16" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding IconPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-    
     <tb:TaskbarIcon x:Key="NotifyIcon"
                     IconSource="{Binding IconSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     ToolTipText="{Binding IconName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
@@ -15,20 +21,10 @@
             <ContextMenu 
                 Visibility="{Binding IsVisible, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" 
                 ItemsSource="{Binding Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                IsOpen="{Binding StayOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <ContextMenu.UsesItemContainerTemplate>false</ContextMenu.UsesItemContainerTemplate>
+                IsOpen="{Binding StayOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                ItemContainerStyleSelector="{StaticResource MenuItemStyleSelector}">
                 <ContextMenu.Resources>
                     <ResourceDictionary>
-                        <Style TargetType="{x:Type MenuItem}">
-                            <Setter Property="Command" Value="{Binding Action}"/>
-                            <Setter Property="Icon" Value="{StaticResource MyIcon}"/>
-                            <Setter Property="IsEnabled" Value="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="ItemsSource" Value="{Binding Children, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="Height" Value="{Binding Height, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="StaysOpenOnClick" Value="{Binding StaysOpenOnClick, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="IsSubmenuOpen" Value="{Binding IsSubMenuOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Setter Property="Background" Value="White"/>
-                        </Style>
                         <DataTemplate  DataType="{x:Type vm:SeparatorMenuItemViewModel}">
                             <Grid>
                                 <Rectangle Fill="DarkGray" Stroke="DarkGray" Height="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="-20,0,-50,0" />

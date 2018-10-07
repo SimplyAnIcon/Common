@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SimplyAnIcon.Common</id>
-    <version>0.5.3</version>
+    <version>0.5.4</version>
     <title>SimplyAnIcon.Common</title>
     <authors>Ericmas001</authors>
     <licenseUrl>https://raw.githubusercontent.com/SimplyAnIcon/Common/master/LICENSE</licenseUrl>
@@ -27,5 +27,7 @@
   </metadata>
   <files>
     <file src="SimplyAnIcon.Common\bin\$configuration$\SimplyAnIcon.Common.dll" target="lib\net461\" />
+    <file src="SimplyAnIcon.Common\bin\$configuration$\SimplyAnIcon.Common.pdb" target="lib\net461\" />
+    <file src="SimplyAnIcon.Common\bin\$configuration$\SimplyAnIcon.Common.xml" target="lib\net461\" />
   </files>
 </package>

@@ -1,4 +1,5 @@
-﻿using SimplyAnIcon.Common.Settings.Interface;
+﻿using System.Windows.Controls;
+using SimplyAnIcon.Common.Settings.Interface;
 using SimplyAnIcon.Plugins.Wpf.V1;
 
 namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
@@ -8,6 +9,10 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
     /// </summary>
     public class SpecialWpfConfigPluginsConfigurationSectionViewModel : AbstractConfigPluginsConfigurationSectionViewModel
     {
+        /// <summary>
+        /// SpecialControl
+        /// </summary>
+        public UserControl SpecialControl { get; private set; }
         /// <summary>
         /// SpecialWpfConfigPluginsConfigurationSectionViewModel
         /// </summary>
@@ -21,6 +26,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
         public void OnInit(ISimplyAWpfPlugin plugin)
         {
             OnInternalInit(plugin);
+            SpecialControl = plugin.CustomConfigControl;
         }
     }
 }

@@ -30,11 +30,11 @@
                     <DataTemplate DataType="{x:Type config:AbstractConfigPluginsConfigurationSectionViewModel}">
                         <DockPanel>
                             <wpfToggleSwitch:ToggleSwitch IsChecked="{Binding IsActivated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Plugin Activated: " UncheckedText="" CheckedText=""/>
-                            <ScrollViewer HorizontalAlignment="Center" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <ContentControl Content="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsActivated, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                     <ContentControl.Resources>
                                         <DataTemplate DataType="{x:Type config:BasicConfigPluginsConfigurationSectionViewModel}">
-                                            <DockPanel>
+                                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                                                 <StackPanel DockPanel.Dock="Top">
                                                     <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="Configuration" />
                                                     <ItemsControl ItemsSource="{Binding Items, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
@@ -80,7 +80,7 @@
                                             </DockPanel>
                                         </DataTemplate>
                                         <DataTemplate DataType="{x:Type config:SpecialWpfConfigPluginsConfigurationSectionViewModel}">
-                                            <Grid />
+                                            <ContentControl Content="{Binding SpecialControl}" />
                                         </DataTemplate>
                                         <DataTemplate DataType="{x:Type config:NoConfigPluginsConfigurationSectionViewModel}">
                                             <Grid />

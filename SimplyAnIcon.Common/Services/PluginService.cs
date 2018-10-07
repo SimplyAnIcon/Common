@@ -46,7 +46,8 @@ namespace SimplyAnIcon.Common.Services
             {
                 "System.",
                 "Microsoft.",
-                "SimplyAnIcon.Plugins.",
+                "SimplyAnIcon.Plugins",
+                "SimplyAnIcon.Common",
                 "netstandard.dll"
             };
 

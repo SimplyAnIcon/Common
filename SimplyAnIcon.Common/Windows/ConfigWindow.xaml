@@ -30,10 +30,10 @@
                     <DataTemplate DataType="{x:Type config:AbstractConfigPluginsConfigurationSectionViewModel}">
                         <DockPanel>
                             <wpfToggleSwitch:ToggleSwitch IsChecked="{Binding IsActivated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Plugin Activated: " UncheckedText="" CheckedText=""/>
-                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                 <ContentControl Content="{Binding Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsActivated, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                                     <ContentControl.Resources>
                                         <DataTemplate DataType="{x:Type config:BasicConfigPluginsConfigurationSectionViewModel}">
+                                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                                             <DockPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                                                 <StackPanel DockPanel.Dock="Top">
                                                     <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="Configuration" />
@@ -78,6 +78,7 @@
                                                     <Button DockPanel.Dock="Bottom" HorizontalAlignment="Center" Margin="10" Content="Save Changes" Command="{Binding SaveCommand}" />
                                                 </StackPanel>
                                             </DockPanel>
+                                            </ScrollViewer>
                                         </DataTemplate>
                                         <DataTemplate DataType="{x:Type config:SpecialWpfConfigPluginsConfigurationSectionViewModel}">
                                             <ContentControl Content="{Binding SpecialControl}" />
@@ -87,7 +88,6 @@
                                         </DataTemplate>
                                     </ContentControl.Resources>
                                 </ContentControl>
-                            </ScrollViewer>
                         </DockPanel>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type configurationSections:PluginsConfigurationSectionViewModel}">

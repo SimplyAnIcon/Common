@@ -1,7 +1,7 @@
 # SimplyAnIcon.Common
 [![com-ericmas001 MyGet Build Status](https://www.myget.org/BuildSource/Badge/com-ericmas001?identifier=2c671af4-74ce-4836-92c3-8c4985192ee2)](https://www.myget.org/)
 
-###Current Version: 0.5.3 *(2018-10-07)*
+###Current Version: 0.5.6 *(2018-10-12)*
 
 <table align="center" width="100%">
     <tbody>

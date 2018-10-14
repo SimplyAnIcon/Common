@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Com.Ericmas001.DependencyInjection.Resolvers.Interfaces;
+using Com.Ericmas001.Mvvm.Collections;
 using SimplyAnIcon.Common.Models;
 using SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins;
 using SimplyAnIcon.Common.ViewModels.Interfaces;
-using SimplyAnIcon.Plugins.Wpf.Util;
 
 namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections
 {

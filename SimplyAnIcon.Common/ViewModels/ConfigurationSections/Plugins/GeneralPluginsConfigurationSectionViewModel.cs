@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
+using Com.Ericmas001.Mvvm;
+using Com.Ericmas001.Mvvm.Collections;
 using SimplyAnIcon.Common.Models;
 using SimplyAnIcon.Common.Settings.Interface;
 using SimplyAnIcon.Common.ViewModels.Interfaces;
-using SimplyAnIcon.Plugins.Wpf.Util;
 using SimplyAnIcon.Plugins.Wpf.V1;
 
 namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins

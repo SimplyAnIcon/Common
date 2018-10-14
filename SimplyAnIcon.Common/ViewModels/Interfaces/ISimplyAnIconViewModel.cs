@@ -1,4 +1,4 @@
-﻿using SimplyAnIcon.Plugins.Wpf.Util;
+﻿using Com.Ericmas001.Mvvm.Collections;
 using SimplyAnIcon.Plugins.Wpf.V1.MenuItemViewModels;
 
 namespace SimplyAnIcon.Common.ViewModels.Interfaces

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GalaSoft.MvvmLight;
+using Com.Ericmas001.Mvvm;
 using SimplyAnIcon.Common.Settings.Interface;
 using SimplyAnIcon.Common.ViewModels.Interfaces;
 using SimplyAnIcon.Plugins.V1;

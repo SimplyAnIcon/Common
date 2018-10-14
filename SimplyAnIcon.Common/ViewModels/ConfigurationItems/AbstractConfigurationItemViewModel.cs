@@ -1,5 +1,5 @@
 ﻿using System;
-using GalaSoft.MvvmLight;
+using Com.Ericmas001.Mvvm;
 using SimplyAnIcon.Plugins.V1.Settings;
 
 namespace SimplyAnIcon.Common.ViewModels.ConfigurationItems

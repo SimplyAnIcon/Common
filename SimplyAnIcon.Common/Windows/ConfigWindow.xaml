@@ -2,13 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:behaviors="clr-namespace:SimplyAnIcon.Common.Behaviors"
         xmlns:config="clr-namespace:SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config"
         xmlns:configurationSections="clr-namespace:SimplyAnIcon.Common.ViewModels.ConfigurationSections"
         xmlns:plugins="clr-namespace:SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins"
         xmlns:wpfToggleSwitch="clr-namespace:WPFToggleSwitch;assembly=WPFToggleSwitch"
         xmlns:configurationItems="clr-namespace:SimplyAnIcon.Common.ViewModels.ConfigurationItems"
         xmlns:controls="clr-namespace:Y2D.CustomControls.Controls;assembly=Y2D.CustomControls"
+        xmlns:behaviors="clr-namespace:Com.Ericmas001.Mvvm.Behaviors;assembly=Com.Ericmas001.Mvvm"
         Title="Options" Height="500" Width="700" Icon="{Binding IconSource, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
     <DockPanel>
         <ScrollViewer Width="200" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">

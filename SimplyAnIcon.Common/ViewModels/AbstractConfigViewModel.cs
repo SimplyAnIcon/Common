@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Com.Ericmas001.DependencyInjection.Resolvers.Interfaces;
-using GalaSoft.MvvmLight;
+using Com.Ericmas001.Mvvm;
+using Com.Ericmas001.Mvvm.Collections;
 using SimplyAnIcon.Common.Models;
 using SimplyAnIcon.Common.ViewModels.ConfigurationSections;
 using SimplyAnIcon.Common.ViewModels.Interfaces;
-using SimplyAnIcon.Plugins.Wpf.Util;
 
 namespace SimplyAnIcon.Common.ViewModels
 {

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Behaviors\BindableSelectedItemBehavior.cs" />
     <Compile Include="CommonRegistrant.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
     <Compile Include="Helpers\Interfaces\IInstanceResolverHelper.cs" />
     <Compile Include="Helpers\Interfaces\IJsonHelper.cs" />
     <Compile Include="Helpers\Interfaces\IWindowsHelper.cs" />

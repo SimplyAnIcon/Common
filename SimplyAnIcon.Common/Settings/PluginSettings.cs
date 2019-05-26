@@ -41,6 +41,9 @@ namespace SimplyAnIcon.Common.Settings
 
             entry.IsActive = value;
 
+            if (value)
+                plugin.OnInit();
+
             SavePluginSettings(plugins);
         }
 
@@ -79,7 +82,7 @@ namespace SimplyAnIcon.Common.Settings
 
             var index = plugins.IndexOf(entry);
 
-            if (index < 0 || index == plugins.Count-1)
+            if (index < 0 || index == plugins.Count - 1)
                 return;
 
             var otherEntry = plugins[index + 1];

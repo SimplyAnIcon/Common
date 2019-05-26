@@ -34,6 +34,8 @@ namespace SimplyAnIcon.Common.Services
         {
             var registrantBuilder = registrantFinderBuilder ?? new RegistrantFinderBuilder();
 
+            var forced = forcedPlugins?.ToArray() ?? new string[0];
+
             var dirs = pluginPaths.Select(x => new DirectoryInfo(x));
             var excludedPrefix = new[]
             {
@@ -79,7 +81,7 @@ namespace SimplyAnIcon.Common.Services
 
             var activePlugins = plugins
                 .Select(x => new { Plugin = x, Setting = _pluginSettings.GetPluginSetting(x) })
-                .Where(x => forcedPlugins.Contains(x.Plugin.Name) || (x.Setting?.IsActive ?? false))
+                .Where(x => forced.Contains(x.Plugin.Name) || (x.Setting?.IsActive ?? false))
                 .OrderBy(x => x.Setting?.Order ?? -1)
                 .Select(x => x.Plugin)
                 .ToArray();

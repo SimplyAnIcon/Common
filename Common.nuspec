@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SimplyAnIcon.Common</id>
-    <version>0.8.3</version>
+    <version>0.8.4</version>
     <title>SimplyAnIcon.Common</title>
     <authors>Ericmas001</authors>
     <licenseUrl>https://raw.githubusercontent.com/SimplyAnIcon/Common/master/LICENSE</licenseUrl>

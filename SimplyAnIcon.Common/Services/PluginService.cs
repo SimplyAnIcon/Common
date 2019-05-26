@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Com.Ericmas001.DependencyInjection.RegistrantFinders;
@@ -29,19 +30,11 @@ namespace SimplyAnIcon.Common.Services
         /// <summary>
         /// LoadPlugins
         /// </summary>
-        public PluginCatalog LoadPlugins(string pluginFolderPath, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null)
+        public PluginCatalog LoadPlugins(IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null)
         {
             var registrantBuilder = registrantFinderBuilder ?? new RegistrantFinderBuilder();
 
-            var dir = new DirectoryInfo(pluginFolderPath);
-            if (!dir.Exists)
-                return new PluginCatalog
-                {
-                    ActiveBackgroungPlugins = new ISimplyAPlugin[0],
-                    ActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
-                    AllPlugins = new ISimplyAPlugin[0]
-                };
-
+            var dirs = pluginPaths.Select(x => new DirectoryInfo(x));
             var excludedPrefix = new[]
             {
                 "System.",
@@ -51,9 +44,16 @@ namespace SimplyAnIcon.Common.Services
                 "netstandard.dll"
             };
 
-            var dlls = dir.GetFiles("*.dll", SearchOption.AllDirectories)
+            var dlls = dirs.SelectMany(dir => dir.GetFiles("*.dll", SearchOption.AllDirectories))
                 .Where(d => excludedPrefix.All(x => !d.Name.StartsWith(x))).ToArray();
 
+            if (!dlls.Any())
+                return new PluginCatalog
+                {
+                    ActiveBackgroungPlugins = new ISimplyAPlugin[0],
+                    ActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
+                    AllPlugins = new ISimplyAPlugin[0]
+                };
             var assemblies = dlls.Select(x => Assembly.LoadFile(x.FullName)).ToList();
             assemblies.ForEach(x => registrantBuilder.AddAssembly(x));
 
@@ -74,12 +74,12 @@ namespace SimplyAnIcon.Common.Services
             foreach (var plugin in plugins)
             {
                 if (pluginSettings.All(x => x.Name != _pluginSettings.GetPluginName(plugin)))
-                _pluginSettings.AddPlugin(plugin);
+                    _pluginSettings.AddPlugin(plugin);
             }
 
             var activePlugins = plugins
-                .Select(x => new {Plugin = x, Setting = _pluginSettings.GetPluginSetting(x)})
-                .Where(x => x.Setting?.IsActive ?? false)
+                .Select(x => new { Plugin = x, Setting = _pluginSettings.GetPluginSetting(x) })
+                .Where(x => forcedPlugins.Contains(x.Plugin.Name) || (x.Setting?.IsActive ?? false))
                 .OrderBy(x => x.Setting?.Order ?? -1)
                 .Select(x => x.Plugin)
                 .ToArray();

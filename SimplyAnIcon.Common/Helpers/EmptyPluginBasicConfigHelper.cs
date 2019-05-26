@@ -9,6 +9,12 @@ namespace SimplyAnIcon.Common.Helpers
     public class EmptyPluginBasicConfigHelper : IPluginBasicConfigHelper
     {
         /// <inheritdoc />
+        public IEnumerable<string> GetForcedPlugins()
+        {
+            return new string[0];
+        }
+
+        /// <inheritdoc />
         public Dictionary<string, object> GetPluginBasicConfig()
         {
             return new Dictionary<string, object>();

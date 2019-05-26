@@ -11,5 +11,10 @@ namespace SimplyAnIcon.Common.Helpers.Interfaces
         /// GetPluginBasicConfig
         /// </summary>
         Dictionary<string, object> GetPluginBasicConfig();
+
+        /// <summary>
+        /// GetForcedPlugins
+        /// </summary>
+        IEnumerable<string> GetForcedPlugins();
     }
 }

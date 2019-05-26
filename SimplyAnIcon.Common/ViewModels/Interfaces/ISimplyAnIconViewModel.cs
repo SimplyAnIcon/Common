@@ -1,4 +1,5 @@
-﻿using Com.Ericmas001.Mvvm.Collections;
+﻿using System.Threading.Tasks;
+using Com.Ericmas001.Mvvm.Collections;
 using SimplyAnIcon.Plugins.Wpf.V1.MenuItemViewModels;
 
 namespace SimplyAnIcon.Common.ViewModels.Interfaces
@@ -32,5 +33,10 @@ namespace SimplyAnIcon.Common.ViewModels.Interfaces
         /// StayOpen
         /// </summary>
         bool StayOpen { get; }
+
+        /// <summary>
+        /// LoadIcon
+        /// </summary>
+        Task LoadIcon();
     }
 }

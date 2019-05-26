@@ -56,6 +56,7 @@ namespace SimplyAnIcon.Common.Services
                     ActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
                     AllPlugins = new ISimplyAPlugin[0]
                 };
+
             var assemblies = dlls.Select(x => Assembly.LoadFile(x.FullName)).ToList();
             assemblies.ForEach(x => registrantBuilder.AddAssembly(x));
 
@@ -81,7 +82,7 @@ namespace SimplyAnIcon.Common.Services
 
             var activePlugins = plugins
                 .Select(x => new { Plugin = x, Setting = _pluginSettings.GetPluginSetting(x) })
-                .Where(x => forced.Contains(x.Plugin.Name) || (x.Setting?.IsActive ?? false))
+                .Where(x => forced.Contains(x.Setting.Name) || (x.Setting?.IsActive ?? false))
                 .OrderBy(x => x.Setting?.Order ?? -1)
                 .Select(x => x.Plugin)
                 .ToArray();

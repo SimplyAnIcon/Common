@@ -16,14 +16,16 @@ namespace SimplyAnIcon.Common.Settings
     {
         private readonly IWindowsHelper _windowsHelper;
         private readonly IJsonHelper _jsonHelper;
+        private readonly IPluginBasicConfigHelper _pluginBasicConfigHelper;
 
         /// <summary>
         /// PluginSettings
         /// </summary>
-        public PluginSettings(IWindowsHelper windowsHelper, IJsonHelper jsonHelper)
+        public PluginSettings(IWindowsHelper windowsHelper, IJsonHelper jsonHelper, IPluginBasicConfigHelper pluginBasicConfigHelper)
         {
             _windowsHelper = windowsHelper;
             _jsonHelper = jsonHelper;
+            _pluginBasicConfigHelper = pluginBasicConfigHelper;
         }
 
         /// <inheritdoc />
@@ -42,7 +44,7 @@ namespace SimplyAnIcon.Common.Settings
             entry.IsActive = value;
 
             if (value)
-                plugin.OnInit();
+                plugin.OnInit(_pluginBasicConfigHelper.GetPluginBasicConfig());
 
             SavePluginSettings(plugins);
         }

@@ -13,6 +13,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
     {
         private readonly IPluginSettings _pluginSettings;
         private bool _isActivated;
+        private bool _isInit = true;
 
         /// <summary>
         /// Plugin
@@ -45,7 +46,8 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
             set
             {
                 Set(ref _isActivated, value);
-                _pluginSettings.SetActivationStatus(Plugin, value);
+                if (!_isInit)
+                    _pluginSettings.SetActivationStatus(Plugin, value);
             }
         }
 
@@ -56,6 +58,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
         {
             Plugin = plugin;
             IsActivated = _pluginSettings.GetPluginSetting(plugin)?.IsActive ?? false;
+            _isInit = false;
         }
     }
 }

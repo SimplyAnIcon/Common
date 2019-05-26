@@ -2,7 +2,6 @@
 using System.Linq;
 using Com.Ericmas001.DependencyInjection.Resolvers.Interfaces;
 using Com.Ericmas001.Mvvm.Collections;
-using SimplyAnIcon.Common.Helpers.Interfaces;
 using SimplyAnIcon.Common.Models;
 using SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config;
 using SimplyAnIcon.Common.ViewModels.Interfaces;
@@ -16,7 +15,6 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins
     public class SpecificPluginsConfigurationSectionViewModel : IConfigurationSectionViewModel
     {
         private readonly IResolverService _resolverService;
-        private readonly IPluginBasicConfigHelper _pluginBasicConfigHelper;
         private readonly FastObservableCollection<IConfigurationSectionViewModel> _sections = new FastObservableCollection<IConfigurationSectionViewModel>();
 
         /// <inheritdoc />
@@ -31,10 +29,9 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins
         /// <summary>
         /// SpecificPluginsConfigurationSectionViewModel
         /// </summary>
-        public SpecificPluginsConfigurationSectionViewModel(IResolverService resolverService, IPluginBasicConfigHelper pluginBasicConfigHelper)
+        public SpecificPluginsConfigurationSectionViewModel(IResolverService resolverService)
         {
             _resolverService = resolverService;
-            _pluginBasicConfigHelper = pluginBasicConfigHelper;
         }
 
         /// <summary>
@@ -44,7 +41,6 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins
         {
             foreach (var plugin in catalog.AllPlugins.OrderBy(x => x.Name))
             {
-                plugin.OnInit(_pluginBasicConfigHelper.GetPluginBasicConfig());
                 if (plugin is ISimplyAWpfPlugin wpfPlugin && wpfPlugin.CustomConfigControl != null)
                 {
                     var section = _resolverService.Resolve<SpecialWpfConfigPluginsConfigurationSectionViewModel>();

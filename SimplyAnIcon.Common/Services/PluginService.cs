@@ -85,11 +85,7 @@ namespace SimplyAnIcon.Common.Services
                 .ToArray();
 
             foreach (var plugin in newCatalog.Where(x => x.IsNew))
-            {
                 plugin.Plugin.OnInit(_pluginBasicConfigHelper.GetPluginBasicConfig());
-                if (plugin.IsActivated)
-                    plugin.Plugin.OnActivation();
-            }
 
             return newCatalog;
         }

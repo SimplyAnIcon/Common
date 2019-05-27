@@ -78,7 +78,7 @@ namespace SimplyAnIcon.Common.Services
                 .OrderBy(x => x.Setting?.Order ?? -1)
                 .Select(x => new PluginInfo
                 {
-                    Plugin = x.Plugin,
+                    Plugin = catalog.FirstOrDefault(o => o.Plugin.Name == x.Plugin.Name)?.Plugin ?? x.Plugin,
                     IsActivated = forced.Contains(x.Setting.Name) || (x.Setting?.IsActive ?? false),
                     IsNew = !catalog.Any(o => o.Plugin.Name == x.Plugin.Name)
                 })

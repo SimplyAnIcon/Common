@@ -8,7 +8,6 @@ using SimplyAnIcon.Common.Models;
 using SimplyAnIcon.Common.Services.Interfaces;
 using SimplyAnIcon.Common.Settings.Interface;
 using SimplyAnIcon.Plugins.V1;
-using SimplyAnIcon.Plugins.Wpf.V1;
 
 namespace SimplyAnIcon.Common.Services
 {
@@ -18,31 +17,26 @@ namespace SimplyAnIcon.Common.Services
     public class PluginService : IPluginService
     {
         private readonly IPluginSettings _pluginSettings;
+        private readonly IPluginBasicConfigHelper _pluginBasicConfigHelper;
 
         /// <summary>
         /// PluginService
         /// </summary>
-        public PluginService(IPluginSettings pluginSettings)
+        public PluginService(IPluginSettings pluginSettings, IPluginBasicConfigHelper pluginBasicConfigHelper)
         {
             _pluginSettings = pluginSettings;
+            _pluginBasicConfigHelper = pluginBasicConfigHelper;
         }
 
         /// <summary>
         /// LoadPlugins
         /// </summary>
-        public PluginCatalog LoadPlugins(PluginCatalog currentCatalog, IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null)
+        public IEnumerable<PluginInfo> LoadPlugins(IEnumerable<PluginInfo> currentCatalog, IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null)
         {
             var registrantBuilder = registrantFinderBuilder ?? new RegistrantFinderBuilder();
 
             var forced = forcedPlugins?.ToArray() ?? new string[0];
-            var catalog = currentCatalog ?? new PluginCatalog
-            {
-                ActiveBackgroungPlugins = new ISimplyAPlugin[0],
-                ActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
-                AllPlugins = new ISimplyAPlugin[0],
-                NewActiveBackgroungPlugins = new ISimplyAPlugin[0],
-                NewActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
-            };
+            var catalog = currentCatalog ?? new PluginInfo[0];
             var dirs = pluginPaths.Select(x => new DirectoryInfo(x)).Where(x => x.Exists);
             var excludedPrefix = new[]
             {
@@ -72,31 +66,28 @@ namespace SimplyAnIcon.Common.Services
             var plugins = pTypes
                 .Select(resolverHelper.Resolve)
                 .Cast<ISimplyAPlugin>()
-                .Where(x => !catalog.AllPlugins.Any(o => o.Name == x.Name))
                 .ToArray();
 
             var pluginSettings = _pluginSettings.GetPlugins().ToArray();
 
-            foreach (var plugin in plugins)
-            {
-                if (pluginSettings.All(x => x.Name != _pluginSettings.GetPluginName(plugin)))
-                    _pluginSettings.AddPlugin(plugin);
-            }
+            foreach (var plugin in plugins.Where(p => pluginSettings.All(x => x.Name != _pluginSettings.GetPluginName(p))))
+                _pluginSettings.AddPlugin(plugin);
 
-            var activePlugins = plugins
+            var newCatalog = plugins
                 .Select(x => new { Plugin = x, Setting = _pluginSettings.GetPluginSetting(x) })
-                .Where(x => forced.Contains(x.Setting.Name) || (x.Setting?.IsActive ?? false))
                 .OrderBy(x => x.Setting?.Order ?? -1)
-                .Select(x => x.Plugin)
+                .Select(x => new PluginInfo
+                {
+                    Plugin = x.Plugin,
+                    IsActivated = forced.Contains(x.Setting.Name) || (x.Setting?.IsActive ?? false),
+                    IsNew = !catalog.Any(o => o.Plugin.Name == x.Plugin.Name)
+                })
                 .ToArray();
 
-            catalog.NewActiveBackgroungPlugins = activePlugins.Where(p => !(p is ISimplyAWpfPlugin)).ToArray();
-            catalog.NewActiveForegroundPlugins = activePlugins.OfType<ISimplyAWpfPlugin>().ToArray();
-            catalog.AllPlugins = catalog.AllPlugins.Concat(plugins);
-            catalog.ActiveBackgroungPlugins = catalog.ActiveBackgroungPlugins.Concat(catalog.NewActiveBackgroungPlugins);
-            catalog.ActiveForegroundPlugins = catalog.ActiveForegroundPlugins.Concat(catalog.NewActiveForegroundPlugins);
+            foreach (var plugin in newCatalog.Where(x => x.IsNew))
+                plugin.Plugin.OnInit(_pluginBasicConfigHelper.GetPluginBasicConfig());
 
-            return catalog;
+            return newCatalog;
         }
     }
 }

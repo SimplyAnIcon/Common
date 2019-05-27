@@ -41,10 +41,16 @@ namespace SimplyAnIcon.Common.Settings
             if (entry == null)
                 return;
 
-            entry.IsActive = value || _pluginBasicConfigHelper.GetForcedPlugins().Contains(entry.Name);
+            var newValue = value || _pluginBasicConfigHelper.GetForcedPlugins().Contains(entry.Name);
 
-            if (entry.IsActive)
-                plugin.OnInit(_pluginBasicConfigHelper.GetPluginBasicConfig());
+            if (newValue != entry.IsActive)
+            {
+                entry.IsActive = newValue;
+                if (newValue)
+                    plugin.OnActivation();
+                else
+                    plugin.OnDeactivation();
+            }
 
             SavePluginSettings(plugins);
         }

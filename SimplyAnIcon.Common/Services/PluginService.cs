@@ -30,12 +30,19 @@ namespace SimplyAnIcon.Common.Services
         /// <summary>
         /// LoadPlugins
         /// </summary>
-        public PluginCatalog LoadPlugins(IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null)
+        public PluginCatalog LoadPlugins(PluginCatalog currentCatalog, IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null)
         {
             var registrantBuilder = registrantFinderBuilder ?? new RegistrantFinderBuilder();
 
             var forced = forcedPlugins?.ToArray() ?? new string[0];
-
+            var catalog = currentCatalog ?? new PluginCatalog
+            {
+                ActiveBackgroungPlugins = new ISimplyAPlugin[0],
+                ActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
+                AllPlugins = new ISimplyAPlugin[0],
+                NewActiveBackgroungPlugins = new ISimplyAPlugin[0],
+                NewActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
+            };
             var dirs = pluginPaths.Select(x => new DirectoryInfo(x));
             var excludedPrefix = new[]
             {
@@ -50,12 +57,7 @@ namespace SimplyAnIcon.Common.Services
                 .Where(d => excludedPrefix.All(x => !d.Name.StartsWith(x))).ToArray();
 
             if (!dlls.Any())
-                return new PluginCatalog
-                {
-                    ActiveBackgroungPlugins = new ISimplyAPlugin[0],
-                    ActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
-                    AllPlugins = new ISimplyAPlugin[0]
-                };
+                return catalog;
 
             var assemblies = dlls.Select(x => Assembly.LoadFile(x.FullName)).ToList();
             assemblies.ForEach(x => registrantBuilder.AddAssembly(x));
@@ -70,6 +72,7 @@ namespace SimplyAnIcon.Common.Services
             var plugins = pTypes
                 .Select(resolverHelper.Resolve)
                 .Cast<ISimplyAPlugin>()
+                .Where(x => !catalog.AllPlugins.Any(o => o.Name == x.Name))
                 .ToArray();
 
             var pluginSettings = _pluginSettings.GetPlugins().ToArray();
@@ -87,12 +90,13 @@ namespace SimplyAnIcon.Common.Services
                 .Select(x => x.Plugin)
                 .ToArray();
 
-            return new PluginCatalog
-            {
-                AllPlugins = plugins,
-                ActiveBackgroungPlugins = activePlugins.Where(p => !(p is ISimplyAWpfPlugin)).ToArray(),
-                ActiveForegroundPlugins = activePlugins.OfType<ISimplyAWpfPlugin>().ToArray(),
-            };
+            catalog.NewActiveBackgroungPlugins = activePlugins.Where(p => !(p is ISimplyAWpfPlugin)).ToArray();
+            catalog.NewActiveForegroundPlugins = activePlugins.OfType<ISimplyAWpfPlugin>().ToArray();
+            catalog.AllPlugins = catalog.AllPlugins.Concat(plugins);
+            catalog.ActiveBackgroungPlugins = catalog.ActiveBackgroungPlugins.Concat(catalog.NewActiveBackgroungPlugins);
+            catalog.ActiveForegroundPlugins = catalog.ActiveForegroundPlugins.Concat(catalog.NewActiveForegroundPlugins);
+
+            return catalog;
         }
     }
 }

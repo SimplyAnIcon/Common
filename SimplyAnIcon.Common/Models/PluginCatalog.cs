@@ -10,18 +10,28 @@ namespace SimplyAnIcon.Common.Models
     public class PluginCatalog
     {
         /// <summary>
-        /// PluginWpfInstances
+        /// AllPlugins
         /// </summary>
         public IEnumerable<ISimplyAPlugin> AllPlugins { get; set; }
 
         /// <summary>
-        /// PluginWpfInstances
+        /// ActiveForegroundPlugins
         /// </summary>
         public IEnumerable<ISimplyAWpfPlugin> ActiveForegroundPlugins { get; set; }
 
         /// <summary>
-        /// PluginInstances
+        /// ActiveBackgroungPlugins
         /// </summary>
         public IEnumerable<ISimplyAPlugin> ActiveBackgroungPlugins { get; set; }
+
+        /// <summary>
+        /// NewActiveForegroundPlugins
+        /// </summary>
+        public IEnumerable<ISimplyAWpfPlugin> NewActiveForegroundPlugins { get; set; }
+
+        /// <summary>
+        /// NewActiveBackgroungPlugins
+        /// </summary>
+        public IEnumerable<ISimplyAPlugin> NewActiveBackgroungPlugins { get; set; }
     }
 }

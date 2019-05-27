@@ -13,6 +13,6 @@ namespace SimplyAnIcon.Common.Services.Interfaces
         /// <summary>
         /// LoadPlugins
         /// </summary>
-        PluginCatalog LoadPlugins(IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null);
+        PluginCatalog LoadPlugins(PluginCatalog currentCatalog, IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null);
     }
 }

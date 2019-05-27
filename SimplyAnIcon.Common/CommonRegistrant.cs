@@ -24,6 +24,7 @@ namespace SimplyAnIcon.Common
             Register<IWindowsHelper, WindowsHelper>();
             Register<IJsonHelper, JsonHelper>();
             Register<IPluginBasicConfigHelper, EmptyPluginBasicConfigHelper>();
+            Register<IAppNameHelper, CurrentAppNameHelper>();
         }
 
         private void RegisterServices()

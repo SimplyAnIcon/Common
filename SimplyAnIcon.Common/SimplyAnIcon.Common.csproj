@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonRegistrant.cs" />
+    <Compile Include="Helpers\CurrentAppNameHelper.cs" />
     <Compile Include="Helpers\EmptyPluginBasicConfigHelper.cs" />
+    <Compile Include="Helpers\Interfaces\IAppNameHelper.cs" />
     <Compile Include="Helpers\Interfaces\IInstanceResolverHelper.cs" />
     <Compile Include="Helpers\Interfaces\IJsonHelper.cs" />
     <Compile Include="Helpers\Interfaces\IPluginBasicConfigHelper.cs" />

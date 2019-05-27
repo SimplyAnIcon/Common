@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using SimplyAnIcon.Common.Helpers.Interfaces;
 
 namespace SimplyAnIcon.Common.Helpers
@@ -10,14 +9,24 @@ namespace SimplyAnIcon.Common.Helpers
     /// </summary>
     public class WindowsHelper : IWindowsHelper
     {
+        private readonly IAppNameHelper _appNameHelper;
+
+        /// <summary>
+        /// WindowsHelper
+        /// </summary>
+        public WindowsHelper(IAppNameHelper appNameHelper)
+        {
+            _appNameHelper = appNameHelper;
+        }
+
         /// <inheritdoc />
         public string AppRoamingDataPath()
         {
             var di = new DirectoryInfo(Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                Assembly.GetEntryAssembly().GetName().Name));
+                _appNameHelper.GetAppName()));
 
-            if(!di.Exists)
+            if (!di.Exists)
                 di.Create();
 
             return di.FullName;

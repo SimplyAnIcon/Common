@@ -53,7 +53,7 @@ namespace SimplyAnIcon.Common.ViewModels
         /// <summary>
         /// OnInit
         /// </summary>
-        public void OnInit(PluginCatalog catalog)
+        public void OnInit(IEnumerable<PluginInfo> catalog)
         {
             _sections.AddItems(GenerateSections(catalog).ToList());
 
@@ -63,11 +63,11 @@ namespace SimplyAnIcon.Common.ViewModels
         /// <summary>
         /// GenerateSections
         /// </summary>
-        protected virtual IEnumerable<IConfigurationSectionViewModel> GenerateSections(PluginCatalog catalog)
+        protected virtual IEnumerable<IConfigurationSectionViewModel> GenerateSections(IEnumerable<PluginInfo> catalog)
         {
             var plugins = _resolverService.Resolve<PluginsConfigurationSectionViewModel>();
             plugins.OnInit(catalog);
-            return new[] {plugins};
+            return new[] { plugins };
         }
     }
 }

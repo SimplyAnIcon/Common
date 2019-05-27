@@ -23,7 +23,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections
 
         /// <inheritdoc />
         public IEnumerable<IConfigurationSectionViewModel> ChildrenSections => _sections;
-        
+
         /// <summary>
         /// PluginsConfigurationSectionViewModel
         /// </summary>
@@ -35,7 +35,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections
         /// <summary>
         /// 
         /// </summary>
-        public void OnInit(PluginCatalog catalog)
+        public void OnInit(IEnumerable<PluginInfo> catalog)
         {
             var genPlugin = _resolverService.Resolve<GeneralPluginsConfigurationSectionViewModel>();
             genPlugin.OnInit(catalog);

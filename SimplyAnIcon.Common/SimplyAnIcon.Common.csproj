@@ -60,7 +60,6 @@
     <Compile Include="Helpers\Interfaces\IWindowsHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\WindowsHelper.cs" />
-    <Compile Include="Models\PluginCatalog.cs" />
     <Compile Include="Models\PluginInfo.cs" />
     <Compile Include="Models\PluginSettingEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

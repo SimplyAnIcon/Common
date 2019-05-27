@@ -61,17 +61,17 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins
         /// UpCommand
         /// </summary>
         public ICommand DownCommand =>
-            _downCommand = _downCommand ?? new RelayCommand(MoveDown, () => Plugins.IndexOf(SelectedPlugin) >= 0 && Plugins.IndexOf(SelectedPlugin) < Plugins.Count-1);
-        
+            _downCommand = _downCommand ?? new RelayCommand(MoveDown, () => Plugins.IndexOf(SelectedPlugin) >= 0 && Plugins.IndexOf(SelectedPlugin) < Plugins.Count - 1);
+
         /// <inheritdoc />
         public IEnumerable<IConfigurationSectionViewModel> ChildrenSections => new IConfigurationSectionViewModel[0];
 
         /// <summary>
         /// OnInit
         /// </summary>
-        public void OnInit(PluginCatalog catalog)
+        public void OnInit(IEnumerable<PluginInfo> catalog)
         {
-            Plugins.AddItems(catalog.ActiveForegroundPlugins.ToList());
+            Plugins.AddItems(catalog.Where(x => x.IsActivated && x.IsForeground).Select(x => x.ForegroundPlugin).ToList());
         }
 
         private void MoveUp()
@@ -80,7 +80,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins
             var p = SelectedPlugin;
             Plugins.Remove(p);
             _pluginSettings.MoveOrderUp(p);
-            Plugins.Insert(i-1,p);
+            Plugins.Insert(i - 1, p);
             SelectedPlugin = p;
         }
         private void MoveDown()

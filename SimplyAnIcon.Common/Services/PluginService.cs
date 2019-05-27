@@ -43,7 +43,7 @@ namespace SimplyAnIcon.Common.Services
                 NewActiveBackgroungPlugins = new ISimplyAPlugin[0],
                 NewActiveForegroundPlugins = new ISimplyAWpfPlugin[0],
             };
-            var dirs = pluginPaths.Select(x => new DirectoryInfo(x));
+            var dirs = pluginPaths.Select(x => new DirectoryInfo(x)).Where(x => x.Exists);
             var excludedPrefix = new[]
             {
                 "System.",

@@ -28,9 +28,32 @@ namespace SimplyAnIcon.Common.Services
             _pluginBasicConfigHelper = pluginBasicConfigHelper;
         }
 
-        /// <summary>
-        /// LoadPlugins
-        /// </summary>
+        /// <inheritdoc />
+        public void ActivateNewPlugins(IEnumerable<PluginInfo> currentCatalog)
+        {
+            if (currentCatalog == null)
+                return;
+
+            foreach (var plugin in currentCatalog.Where(x => x.IsNew && x.IsActivated))
+                plugin.Plugin.OnActivation();
+        }
+
+        /// <inheritdoc />
+        public void DisposePlugins(IEnumerable<PluginInfo> currentCatalog)
+        {
+            if (currentCatalog == null)
+                return;
+
+            foreach (var plugin in currentCatalog)
+            {
+                if (plugin.IsActivated)
+                    plugin.Plugin.OnDeactivation();
+
+                plugin.Plugin.OnDispose();
+            }
+        }
+
+        /// <inheritdoc />
         public IEnumerable<PluginInfo> LoadPlugins(IEnumerable<PluginInfo> currentCatalog, IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null)
         {
             var registrantBuilder = registrantFinderBuilder ?? new RegistrantFinderBuilder();

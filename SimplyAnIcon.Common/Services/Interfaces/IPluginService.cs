@@ -14,5 +14,15 @@ namespace SimplyAnIcon.Common.Services.Interfaces
         /// LoadPlugins
         /// </summary>
         IEnumerable<PluginInfo> LoadPlugins(IEnumerable<PluginInfo> currentCatalog, IEnumerable<string> pluginPaths, IInstanceResolverHelper resolverHelper, RegistrantFinderBuilder registrantFinderBuilder = null, IEnumerable<string> forcedPlugins = null);
+
+        /// <summary>
+        /// DisposePlugins
+        /// </summary>
+        void DisposePlugins(IEnumerable<PluginInfo> currentCatalog);
+
+        /// <summary>
+        /// ActivateNewPlugins
+        /// </summary>
+        void ActivateNewPlugins(IEnumerable<PluginInfo> currentCatalog);
     }
 }

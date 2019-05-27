@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SimplyAnIcon.Common</id>
-    <version>0.9.2</version>
+    <version>0.9.3</version>
     <title>SimplyAnIcon.Common</title>
     <authors>Ericmas001</authors>
     <licenseUrl>https://raw.githubusercontent.com/SimplyAnIcon/Common/master/LICENSE</licenseUrl>
@@ -15,8 +15,8 @@
     <copyright />
     <language>en</language>
     <dependencies>
-      <dependency id="SimplyAnIcon.Plugins" version="0.8.0" />
-      <dependency id="SimplyAnIcon.Plugins.Wpf" version="0.8.0" />
+      <dependency id="SimplyAnIcon.Plugins" version="0.9.0" />
+      <dependency id="SimplyAnIcon.Plugins.Wpf" version="0.9.0" />
       <dependency id="Com.Ericmas001.DependencyInjection" version="4.0.0" />
       <dependency id="Com.Ericmas001.Mvvm" version="0.1.0" />
       <dependency id="Hardcodet.NotifyIcon.Wpf" version="1.0.8" />

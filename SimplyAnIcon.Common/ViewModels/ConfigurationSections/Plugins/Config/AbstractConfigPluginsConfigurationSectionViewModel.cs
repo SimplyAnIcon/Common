@@ -42,11 +42,7 @@ namespace SimplyAnIcon.Common.ViewModels.ConfigurationSections.Plugins.Config
         public bool IsActivated
         {
             get => _isActivated;
-            set
-            {
-                Set(ref _isActivated, value);
-                _pluginSettings.SetActivationStatus(Plugin, value);
-            }
+            set => Set(ref _isActivated, _pluginSettings.SetActivationStatus(Plugin, value));
         }
 
         /// <summary>

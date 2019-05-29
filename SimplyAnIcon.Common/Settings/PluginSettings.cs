@@ -32,27 +32,47 @@ namespace SimplyAnIcon.Common.Settings
         public PluginSettingEntry GetPluginSetting(ISimplyAPlugin plugin) => LoadPluginSettings().SingleOrDefault(p => p.Name == GetPluginName(plugin));
 
         /// <inheritdoc />
-        public void SetActivationStatus(ISimplyAPlugin plugin, bool value)
+        public bool SetActivationStatus(ISimplyAPlugin plugin, bool value)
         {
             var plugins = LoadPluginSettings().ToArray();
 
             var entry = plugins.SingleOrDefault(p => p.Name == GetPluginName(plugin));
 
             if (entry == null)
-                return;
+                return value;
 
             var newValue = value || _pluginBasicConfigHelper.GetForcedPlugins().Contains(entry.Name);
 
             if (newValue != entry.IsActive)
             {
-                entry.IsActive = newValue;
                 if (newValue)
-                    plugin.OnActivation();
+                {
+                    try
+                    {
+                        plugin.OnActivation();
+                    }
+                    catch
+                    {
+                        newValue = false;
+                    }
+                }
                 else
-                    plugin.OnDeactivation();
+                {
+                    try
+                    {
+                        plugin.OnDeactivation();
+                    }
+                    catch
+                    {
+                        //Just too bad !
+                    }
+                }
+
+                entry.IsActive = newValue;
             }
 
             SavePluginSettings(plugins);
+            return newValue;
         }
 
         /// <inheritdoc />

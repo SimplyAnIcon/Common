@@ -35,7 +35,16 @@ namespace SimplyAnIcon.Common.Services
                 return;
 
             foreach (var plugin in currentCatalog.Where(x => x.IsNew && x.IsActivated))
-                plugin.Plugin.OnActivation();
+            {
+                try
+                {
+                    plugin.Plugin.OnActivation();
+                }
+                catch
+                {
+                    plugin.IsActivated = false;
+                }
+            }
         }
 
         /// <inheritdoc />
@@ -47,9 +56,25 @@ namespace SimplyAnIcon.Common.Services
             foreach (var plugin in currentCatalog)
             {
                 if (plugin.IsActivated)
-                    plugin.Plugin.OnDeactivation();
+                {
+                    try
+                    {
+                        plugin.Plugin.OnDeactivation();
+                    }
+                    catch
+                    {
+                        //Just too bad !
+                    }
+                }
 
-                plugin.Plugin.OnDispose();
+                try
+                {
+                    plugin.Plugin.OnDispose();
+                }
+                catch
+                {
+                    //Just too bad !
+                }
             }
         }
 
@@ -107,8 +132,17 @@ namespace SimplyAnIcon.Common.Services
                 })
                 .ToArray();
 
-            foreach (var plugin in newCatalog.Where(x => x.IsNew))
-                plugin.Plugin.OnInit(_pluginBasicConfigHelper.GetPluginBasicConfig());
+            foreach (var plugin in newCatalog.Where(x => x.IsNew).ToArray())
+            {
+                try
+                {
+                    plugin.Plugin.OnInit(_pluginBasicConfigHelper.GetPluginBasicConfig());
+                }
+                catch
+                {
+                    newCatalog = newCatalog.Except(new []{plugin}).ToArray();
+                }
+            }
 
             return newCatalog;
         }

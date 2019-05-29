@@ -17,7 +17,7 @@ namespace SimplyAnIcon.Common.Settings.Interface
         /// <summary>
         /// SetActivationStatus
         /// </summary>
-        void SetActivationStatus(ISimplyAPlugin plugin, bool value);
+        bool SetActivationStatus(ISimplyAPlugin plugin, bool value);
 
         /// <summary>
         /// AddPlugin

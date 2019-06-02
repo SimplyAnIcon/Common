@@ -11,7 +11,7 @@ namespace SimplyAnIcon.Common.Helpers
         /// <inheritdoc />
         public string GetAppName()
         {
-            return Assembly.GetEntryAssembly().GetName().Name;
+            return Assembly.GetEntryAssembly()?.GetName().Name;
         }
     }
 }

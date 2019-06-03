@@ -18,6 +18,7 @@ namespace SimplyAnIcon.Common
             Register<IWindowsHelper, WindowsHelper>();
             Register<IJsonHelper, JsonHelper>();
             Register<IAppNameHelper, CurrentAppNameHelper>();
+            Register<IProcessHelper, ProcessHelper>();
         }
     }
 }

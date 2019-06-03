@@ -56,8 +56,10 @@
     <Compile Include="Helpers\CurrentAppNameHelper.cs" />
     <Compile Include="Helpers\Interfaces\IAppNameHelper.cs" />
     <Compile Include="Helpers\Interfaces\IJsonHelper.cs" />
+    <Compile Include="Helpers\Interfaces\IProcessHelper.cs" />
     <Compile Include="Helpers\Interfaces\IWindowsHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\ProcessHelper.cs" />
     <Compile Include="Helpers\WindowsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

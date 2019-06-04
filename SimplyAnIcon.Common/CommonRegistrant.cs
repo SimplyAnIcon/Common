@@ -5,7 +5,7 @@ using SimplyAnIcon.Common.Helpers.Interfaces;
 namespace SimplyAnIcon.Common
 {
     /// <inheritdoc />
-    public class CoreRegistrant : AbstractRegistrant
+    public class CommonRegistrant : AbstractRegistrant
     {
         /// <inheritdoc />
         protected override void RegisterEverything()
